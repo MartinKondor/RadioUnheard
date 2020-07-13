@@ -9,7 +9,7 @@ body {
 }
 
 a {
-    color: rgb(255, 0, 0);
+    color: rgb(210, 0, 0);
     transition: 0.5s ease-in-out;
 }
 
@@ -25,5 +25,5 @@ a:focus {
 
 .track-title {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 17px;
 }

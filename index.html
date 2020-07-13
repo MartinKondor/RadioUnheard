@@ -14,18 +14,9 @@
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
-    <h1 class="text-center"></h1>
+    <h1 class="text-center">Radio Unheard</h1>
     <br>
     <div id="root">Loading ...</div>
-
-    <div class="track">
-        <a href="{data.url}" class="track-title">{data.title}</a>
-        <span class="text-muted">|</span>
-        <a href="https://www.reddit.com/{data.subreddit_name_prefixed}" class="text-muted">{data.subreddit_name_prefixed}</a>
-        <br/>
-        <!--<iframe width="600" height="338" src="https://www.youtube.com/embed/qUm4-XJzt9o?feature=oembed&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>-->
-        <hr/>
-    </div>
 
     <br>
     <footer>
@@ -49,7 +40,7 @@
         }
 
         getTracks() {
-            fetch("https://www.reddit.com/r/unheardof/hot/.json?limit=5")
+            fetch("https://www.reddit.com/r/unheardof/new/.json?limit=20")
                 .then((res) => res.json())
                 .then((res) => {
                     this.setState({
@@ -81,16 +72,18 @@
 
                 return (<div>
                     {this.state.tracks.data.children.map((track, i) => {
-                        const data = track.data;
+                        let data = track.data;
 
+                        /*
                         if (!data.is_video) {
                             return (<div></div>);
                         }
+                        */
 
                         return (<div class="track">
-                            <a href="{data.url}" class="track-title">{data.title}</a>
-                            <span class="text-muted">|</span>
-                            <a href="https://www.reddit.com/{data.subreddit_name_prefixed}" class="text-muted">{data.subreddit_name_prefixed}</a>
+                            <a href={data.url} class="track-title">{data.title}</a>
+                            <span class="text-muted"> | </span>
+                            <a href={"https://www.reddit.com/" + data.subreddit_name_prefixed} class="text-muted">{data.subreddit_name_prefixed}</a>
                             <br/>
                             <hr/>
                         </div>);
