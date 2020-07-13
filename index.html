@@ -18,10 +18,19 @@
     <br>
     <div id="root">Loading ...</div>
 
-    <!--
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    -->
+    <div class="track">
+        <a href="{data.url}" class="track-title">{data.title}</a>
+        <span class="text-muted">|</span>
+        <a href="https://www.reddit.com/{data.subreddit_name_prefixed}" class="text-muted">{data.subreddit_name_prefixed}</a>
+        <br/>
+        <!--<iframe width="600" height="338" src="https://www.youtube.com/embed/qUm4-XJzt9o?feature=oembed&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>-->
+        <hr/>
+    </div>
+
+    <br>
+    <footer>
+        <a href="https://martinkondor.github.io" class="text-muted small">Copyright &copy; 2020 Martin Kondor</a>
+    </footer>
 
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
@@ -40,7 +49,7 @@
         }
 
         getTracks() {
-            fetch("https://www.reddit.com/r/unheardof/top/.json?count=20")
+            fetch("https://www.reddit.com/r/unheardof/hot/.json?limit=5")
                 .then((res) => res.json())
                 .then((res) => {
                     this.setState({
@@ -73,8 +82,17 @@
                 return (<div>
                     {this.state.tracks.data.children.map((track, i) => {
                         const data = track.data;
+
+                        if (!data.is_video) {
+                            return (<div></div>);
+                        }
+
                         return (<div class="track">
-                            {data.title}
+                            <a href="{data.url}" class="track-title">{data.title}</a>
+                            <span class="text-muted">|</span>
+                            <a href="https://www.reddit.com/{data.subreddit_name_prefixed}" class="text-muted">{data.subreddit_name_prefixed}</a>
+                            <br/>
+                            <hr/>
                         </div>);
                     })}    
                 </div>);

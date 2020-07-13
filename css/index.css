@@ -8,6 +8,22 @@ body {
     font-family: 'Roboto Mono', sans-serif;
 }
 
-.track {
-    color: red;
+a {
+    color: rgb(255, 0, 0);
+    transition: 0.5s ease-in-out;
+}
+
+a:hover {
+    color: rgb(151, 0, 0);
+}
+
+a,
+a:active,
+a:focus {
+    text-decoration: none !important;
+}
+
+.track-title {
+    font-weight: bold;
+    font-size: 22px;
 }
