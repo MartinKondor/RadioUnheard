@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Radio Unheard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css" />
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <h1 class="text-center"></h1>
+    <br>
+    <div id="root">Loading ...</div>
+
+    <!--
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    -->
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+
+    <!--<script type="text/babel" src="js/index.js"></script> -->
+    <script type="text/babel">
+
+        class Tracks extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {
+                tracks: false
+            }
+        }
+
+        getTracks() {
+            fetch("https://www.reddit.com/r/unheardof/top/.json?count=20")
+                .then((res) => res.json())
+                .then((res) => {
+                    this.setState({
+                        tracks: res
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        tracks: false
+                    });
+                });
+        }
+
+        render() {
+            this.getTracks();
+
+            // If tracks loaded in
+            if (this.state.tracks) {
+                for (const track of this.state.tracks.data.children) {
+                    const data = track.data;
+
+                    data.subreddit_name_prefixed;
+                    data.title;
+                    data.media_embed.content;
+                    data.media_embed.width;
+                    data.media_embed.height;
+                    data.author
+                }
+
+                return (<div>
+                    {this.state.tracks.data.children.map((track, i) => {
+                        const data = track.data;
+                        return (<div class="track">
+                            {data.title}
+                        </div>);
+                    })}    
+                </div>);
+            }
+
+            return <p>Loading data ...</p>;
+        }
+        }
+
+        class App extends React.Component {
+        render() {
+            return (
+                <Tracks />
+            );
+        }
+        }
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+    
+    </script>
+
+</body>
+</html>
